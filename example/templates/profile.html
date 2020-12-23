@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.5.0.js" 
+integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" 
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+    var hoge = function(){
+        $.ajax(
+            {
+                type:"GET",
+                url: "/notify/",
+                data:{},
+                'dataType':'json',
+                'success': function(response){
+                    alert("Okay, I sent a message to your LINE account.")
+                },
+                'error':function(response){
+                    alert("you failed to send a message to your LINE account. ")
+                },
+            })
+        };
+</script>
+<h1>Profile</h1>
+
+<p>Your profile</p>
+
+{% if social_account %}
+<h1> Hello {{ social_account.extra_data.displayName }}</h1>
+
+<input type="button" class="notify" value="Notify to {{ social_account.extra_data.displayName }}"
+ onclick="hoge()"/>
+{% endif %}
+<!-- button to push a notification to uid . -->
+{% endblock %}
