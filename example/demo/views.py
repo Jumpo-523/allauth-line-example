@@ -19,7 +19,7 @@ def get_social_account_user(request):
 
 # For Handling DoesNotExist Error.
 # from allauth.socialaccount.models.SocialAccount import DoesNotExist
-class ProfileFormView(TemplateView):
+class ProfileTemplateView(TemplateView):
     form_class = None
     social_account = None
     template_name = "profile.html"
@@ -48,7 +48,7 @@ class ProfileFormView(TemplateView):
         context["social_account"] = self.social_account
         return context
 
-profile = ProfileFormView.as_view() 
+profile = ProfileTemplateView.as_view() 
 
 
 def notify_by_message_api(request):
@@ -60,7 +60,7 @@ def notify_by_message_api(request):
     from linebot import LineBotApi
     from linebot.models import TextSendMessage
     from linebot.exceptions import LineBotApiError
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     try:
         line_bot_api = LineBotApi(os.environ["LINE_CHANNEL_ACCESS_TOKEN"])
         line_bot_api.push_message(f'{user.uid}', TextSendMessage(text='初めまして、webサイトへの登録ありがとうございます。'))
